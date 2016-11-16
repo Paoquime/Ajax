@@ -8,7 +8,7 @@ $(document).ready(function (){
 	function callItunesSearch(searchTerm, showResults, noResultsMessage, error){
 		startLoading();
 		// Pueden revisar el API en el link https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
-		var root = 'https://itunes.apple.com/search?';
+		var root ="https://itunes.apple.com/search?term=musicTrack&artistTerm=AllArtistTerm&country=PE&callback="{jQuery.parseJSON();}";
 		$.ajax({
 		// completa el ajax aquí
         });
@@ -48,4 +48,3 @@ $(document).ready(function (){
 		$(".spinner").remove();
 	}
 });
-
