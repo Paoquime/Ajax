@@ -7,10 +7,26 @@ $(document).ready(function (){
 
 	function callItunesSearch(searchTerm, showResults, noResultsMessage, error){
 		startLoading();
-		// Pueden revisar el API en el link https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
-		var root ="https://itunes.apple.com/search?term=musicTrack&artistTerm=AllArtistTerm&country=PE&callback="{jQuery.parseJSON();}";
+		var root ="https://itunes.apple.com/search?";
 		$.ajax({
-		// completa el ajax aquí
+			url: root,
+			method: "GET",
+			data: {
+				term: searchTerm,
+				limit: 4
+			},
+
+			success: function(data){
+				swal("Estás a punto de escuchar tu canción favorita!");
+				showResults(JSON.parse(data));
+			},
+			error: function(data){
+				console.log(data.status);
+				noResultsMessage();
+			},
+			complete: function(data){
+				stopLoading();
+			}
         });
 	}
 
@@ -18,9 +34,15 @@ $(document).ready(function (){
 	function showResults(data){
 		console.log(data);
 		data.results.map(function(cancion, index){
+			var audioMusic = new Audio();
+			audioMusic.src = cancion.previewUrl; 
+			audioMusic.controls = true;
 			var song  = document.createElement("div");
+			var imgSong = document.createElement("img");
+			$(imgSong).attr("src",cancion.artworkUrl30);
+			$(song).append(audioMusic);
+			$(song).append(imgSong);
 			$(song).addClass("song");
-			// genera los elementos de cada canción aquí
 			$("#search-results").append(song);
 		});
 	}
