@@ -1,4 +1,5 @@
 $(document).ready(function (){
+	swal("Ingresa el nombre del artista o banda");
 	$("#search-form button").click(function(event){
 		event.preventDefault();
 		var term = cleanTerm($("#search-form input").val());
